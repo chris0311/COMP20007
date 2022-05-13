@@ -69,6 +69,29 @@ void hash(uint8_t *output, uint64_t output_len, uint8_t const *msg,
   //   sponge_read(o, &sponge, RATE);
   //   sponge_permute(&sponge);
   //   sponge_read(o + RATE, &sponge, 16);
+
+  int rate_count = 0;
+  // Write the message to the sponge
+  while(msg_len > 16){
+      sponge_write(&sponge, msg + rate_count*RATE, RATE, true);
+      sponge_permute(&sponge);
+      msg_len -= RATE;
+      rate_count++;
+  }
+  sponge_write(&sponge, msg + rate_count*RATE, msg_len, true);
+  sponge_demarcate(&sponge, msg_len, DELIMITER_A);
+  sponge_demarcate(&sponge, RATE-1, DELIMITER_B);
+  sponge_permute(&sponge);
+
+  // Read the output from the sponge
+  rate_count = 0;
+  while (output_len > 16){
+      sponge_read(output + rate_count*RATE, &sponge, RATE);
+      sponge_permute(&sponge);
+      output_len -= RATE;
+      rate_count++;
+  }
+  sponge_read(output + rate_count*RATE, &sponge, output_len);
 }
 
 void mac(uint8_t *tag, uint64_t tag_len, uint8_t const *key, uint8_t const *msg,
@@ -81,6 +104,36 @@ void mac(uint8_t *tag, uint64_t tag_len, uint8_t const *key, uint8_t const *msg,
   // function's, but should include a keying phase before the absorbing phase.
   // If you wish, you may also treat this as calculating the hash of the key
   // prepended to the message.
+
+  // Write the key to the sponge
+  for (int i = 0; i < 2; i++){
+      sponge_write(&sponge, key + i*RATE, RATE, true);
+      sponge_permute(&sponge);
+  }
+
+  // Write the message to the sponge
+  int rate_count = 0;
+  // Write the message to the sponge
+  while(msg_len > 16){
+      sponge_write(&sponge, msg + rate_count*RATE, RATE, true);
+      sponge_permute(&sponge);
+      msg_len -= RATE;
+      rate_count++;
+  }
+  sponge_write(&sponge, msg + rate_count*RATE, msg_len, true);
+  sponge_demarcate(&sponge, msg_len, DELIMITER_A);
+  sponge_demarcate(&sponge, RATE-1, DELIMITER_B);
+  sponge_permute(&sponge);
+
+  // Read the output from the sponge
+  rate_count = 0;
+  while (tag_len > 16){
+      sponge_read(tag + rate_count*RATE, &sponge, RATE);
+      sponge_permute(&sponge);
+      tag_len -= RATE;
+      rate_count++;
+    }
+  sponge_read(tag + rate_count*RATE, &sponge, tag_len);
 }
 
 void auth_encr(uint8_t *ciphertext, uint8_t *tag, uint64_t tag_len,
@@ -94,6 +147,38 @@ void auth_encr(uint8_t *ciphertext, uint8_t *tag, uint64_t tag_len,
   // but should after each write into the sponge's state, there should
   // immediately follow a read from the sponge's state of the same number of
   // bytes, into the ciphertext buffer.
+
+  // Write the key to the sponge
+  for (int i = 0; i < 2; i++){
+      sponge_write(&sponge, key + i*RATE, RATE, true);
+      sponge_permute(&sponge);
+  }
+
+  // Write the message to the sponge
+  int rate_count = 0;
+  // Write the message to the sponge
+  while(text_len > 16){
+      sponge_write(&sponge, plaintext + rate_count*RATE, RATE, true);
+      sponge_read(ciphertext + rate_count*RATE, &sponge, RATE);
+      sponge_permute(&sponge);
+      text_len -= RATE;
+      rate_count++;
+  }
+  sponge_write(&sponge, plaintext + rate_count*RATE, text_len, true);
+  sponge_read(ciphertext + rate_count*RATE, &sponge, text_len);
+  sponge_demarcate(&sponge, text_len, DELIMITER_A);
+  sponge_demarcate(&sponge, RATE-1, DELIMITER_B);
+  sponge_permute(&sponge);
+
+  // Read the output from the sponge
+  rate_count = 0;
+  while (tag_len > 16){
+      sponge_read(tag + rate_count*RATE, &sponge, RATE);
+      sponge_permute(&sponge);
+      tag_len -= RATE;
+      rate_count++;
+  }
+  sponge_read(tag + rate_count*RATE, &sponge, tag_len);
 }
 
 int auth_decr(uint8_t *plaintext, uint8_t const *key, uint8_t const *ciphertext,
@@ -105,5 +190,51 @@ int auth_decr(uint8_t *plaintext, uint8_t const *key, uint8_t const *ciphertext,
   // The implementation of this function is left as a challenge. It may assist
   // you to know that a ^ b ^ b = a. Remember to return 0 on success, and 1 on
   // failure.
+
+  // Not working
+
+  // Write the key to the sponge
+  for (int i = 0; i < 2; i++){
+      sponge_write(&sponge, key + i*RATE, RATE, true);
+      sponge_permute(&sponge);
+  }
+
+  // Write tag to the sponge
+  int rate_count = 0;
+  while(tag_len > 16){
+      sponge_write(&sponge, tag + rate_count*RATE, RATE, true);
+      sponge_permute(&sponge);
+      tag_len -= RATE;
+      rate_count++;
+  }
+  sponge_write(&sponge, ciphertext + rate_count*RATE, tag_len, true);
+  sponge_demarcate(&sponge, tag_len, DELIMITER_A);
+  sponge_demarcate(&sponge, RATE-1, DELIMITER_B);
+  sponge_permute(&sponge);
+
+  // Write the ciphertext to the sponge
+  rate_count = 0;
+  while(text_len > 16){
+      sponge_write(&sponge, ciphertext + rate_count*RATE, RATE, true);
+      //sponge_read(plaintext + rate_count*RATE, &sponge, RATE);
+      sponge_permute(&sponge);
+      text_len -= RATE;
+      rate_count++;
+  }
+  sponge_write(&sponge, ciphertext + rate_count*RATE, text_len, true);
+  //sponge_read(plaintext + rate_count*RATE, &sponge, text_len);
+  sponge_demarcate(&sponge, text_len, DELIMITER_A);
+  sponge_demarcate(&sponge, RATE-1, DELIMITER_B);
+  sponge_permute(&sponge);
+
+  // Read the output from the sponge
+  rate_count = 0;
+  while (text_len > 16){
+      sponge_read(plaintext + rate_count*RATE, &sponge, RATE);
+      sponge_permute(&sponge);
+      text_len -= RATE;
+      rate_count++;
+    }
+  sponge_read(plaintext + rate_count*RATE, &sponge, text_len);
   return 1;
 }

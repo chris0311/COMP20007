@@ -47,5 +47,5 @@ void sponge_demarcate(sponge_t *sponge, uint64_t i, uint8_t delimiter) {
 void sponge_permute(sponge_t *sponge) {
   // TODO: fill the rest of this function.
   // You should use the permute_384 function from include/permutation.h.
-    permute_384(sponge->state);
+  permute_384(sponge->state);
 }
