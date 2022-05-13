@@ -25,6 +25,7 @@ void sponge_init(sponge_t *sponge);
 
 // Reads num bytes from the sponge's state into the dest buffer.
 void sponge_read(uint8_t *dest, sponge_t const *sponge, uint64_t num);
+
 // Writes num bytes from the src buffer into the sponge's state, either by
 // bit-wise XOR when bw_xor, else by overwriting.
 void sponge_write(sponge_t *sponge, uint8_t const *src, uint64_t num,
