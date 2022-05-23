@@ -17,6 +17,6 @@ void printTree(struct tree *tree, int level);
 
 /* Prints the median value of all values of the tree
 and its level, beginning from the root as level 0. */
-void findMedian(struct tree *tree);
+void findMedian(struct tree *tree, int totalVal, int targetVal, int level);
 
 void traverseTree(struct tree *tree);

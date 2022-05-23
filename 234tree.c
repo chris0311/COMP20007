@@ -260,21 +260,48 @@ void printTree(struct tree *tree, int level) {
     printTree(tree->child3, level + 1);
 }
 
-void findMedian(struct tree *tree, int totalVal) {
-
+void findMedian(struct tree *tree, int totalVal, int targetVal, int level) {
     int temp = 0;
-
-    if (tree->child0 != NULL){
-        temp = tree->child0->numVals + tree->child0->numDescendants;
-        if ()
+    if (tree->child0 != NULL) {
+        temp = tree->child0->numDescendants + tree->child0->numVals;
+        printf("temp: %d\n", temp);
+        if (totalVal - temp < targetVal) {
+            return findMedian(tree->child0, totalVal, targetVal, level + 1);
+        }
     }
+    if (totalVal - temp == targetVal){
+        printf("%d %d", tree->value1, level);
+        return;
+    }
+    totalVal = totalVal - temp - 1;
+    temp = 0;
 
+    if (tree->child1 != NULL) {
+        temp = tree->child1->numDescendants + tree->child1->numVals;
+        if (totalVal - temp < targetVal) {
+            return findMedian(tree->child1, totalVal, targetVal, level + 1);
+        }
+    }
+    if (totalVal - temp == targetVal){
+        printf("%d %d", tree->value2, level);
+        return;
+    }
+    totalVal = totalVal - temp - 1;
+    temp = 0;
+
+    if (tree->child2 != NULL) {
+        temp = tree->child2->numDescendants + tree->child2->numVals;
+        if (totalVal - temp < targetVal) {
+            return findMedian(tree->child2, totalVal, targetVal, level + 1);
+        }
+    }
+    else if (totalVal - temp == targetVal){
+        printf("%d %d", tree->value3, level);
+        return;
+    }
+    totalVal = totalVal - temp - 1;
+    temp = 0;
+
+    return findMedian(tree->child3, totalVal, targetVal, level + 1);
 }
 
-void getMedian(){
-    printf("%d %d\n", value, level);
-}
-
-int getTotalValue(struct tree *tree) {
-   return tree->numVals + tree->numDescendants;
-}
