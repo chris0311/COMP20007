@@ -53,6 +53,7 @@ void traverseTree(struct tree *tree){
     if (tree == NULL){
         return;
     }
+    tree->numDescendants = 0;
     if (tree->child0 != NULL){
         traverseTree(tree->child0);
         findDescendants(tree);
@@ -203,6 +204,7 @@ struct tree *insertTree(struct tree *tree, int value) {
         }
         tree = insertTreeRecursive(tree, value);
     }
+    traverseTree(tree);
     return tree;
 }
 
@@ -264,7 +266,6 @@ void findMedian(struct tree *tree, int totalVal, int targetVal, int level) {
     int temp = 0;
     if (tree->child0 != NULL) {
         temp = tree->child0->numDescendants + tree->child0->numVals;
-        printf("temp: %d\n", temp);
         if (totalVal - temp < targetVal) {
             return findMedian(tree->child0, totalVal, targetVal, level + 1);
         }

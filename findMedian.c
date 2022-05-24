@@ -25,14 +25,10 @@ int main(int argc, char **argv){
         tree = insertTree(tree, value);
     }
 
-    traverseTree(tree);
-
-    printTree(tree, 0);
+    //printTree(tree, 0);
 
     int totalVal = tree->numVals + tree->numDescendants;
     int targetVal = (totalVal + 1) / 2;
-
-    printf("targetVal: %d totalVal: %d\n", targetVal, totalVal);
 
     findMedian(tree, totalVal, targetVal, 0);
 
