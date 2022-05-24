@@ -38,8 +38,8 @@ struct tree *splitAndInsert(struct tree *tree, struct tree *child, int value);
 /* Insert the item into the tree using pre-emptive splitting. */
 struct tree *insertTreeRecursive(struct tree *tree, int value);
 
-void traverseTree(struct tree *tree);
-
+/* find the number of descendants of a node
+ * part B implementation */
 void findDescendants(struct tree *tree) {
     int numDescendants = 0;
     if (tree->child0 != NULL) numDescendants += tree->child0->numDescendants + tree->child0->numVals;
@@ -48,31 +48,6 @@ void findDescendants(struct tree *tree) {
     if (tree->child3 != NULL) numDescendants += tree->child3->numDescendants + tree->child3->numVals;
     tree->numDescendants = numDescendants;
 }
-
-void traverseTree(struct tree *tree){
-    if (tree == NULL){
-        return;
-    }
-    tree->numDescendants = 0;
-    if (tree->child0 != NULL){
-        traverseTree(tree->child0);
-        findDescendants(tree);
-    }
-    if (tree->child1 != NULL){
-        traverseTree(tree->child1);
-        findDescendants(tree);
-    }
-    if (tree->child2 != NULL){
-        traverseTree(tree->child2);
-        findDescendants(tree);
-    }
-    if (tree->child3 != NULL){
-        traverseTree(tree->child3);
-        findDescendants(tree);
-    }
-    findDescendants(tree);
-}
-
 
 void insertIntoNode(struct tree *tree, int value) {
     if (tree->numVals == 1) {
@@ -131,6 +106,10 @@ struct tree *splitAndInsert(struct tree *tree, struct tree *child, int value) {
             tree->value1 = child->value2;
             tree->child0 = left;
             tree->child1 = right;
+            // Find descendants of new nodes
+            findDescendants(tree->child0);
+            findDescendants(tree->child1);
+            findDescendants(tree);
             break;
         case 1:
             /* Inserting in second value, shuffle all after first along. */
@@ -140,6 +119,10 @@ struct tree *splitAndInsert(struct tree *tree, struct tree *child, int value) {
             tree->value2 = child->value2;
             tree->child1 = left;
             tree->child2 = right;
+            // Find descendants of new nodes
+            findDescendants(tree->child1);
+            findDescendants(tree->child2);
+            findDescendants(tree);
             break;
         case 2:
             /* Inserting in third value, no shuffling needed. */
@@ -147,6 +130,10 @@ struct tree *splitAndInsert(struct tree *tree, struct tree *child, int value) {
             tree->value3 = child->value2;
             tree->child2 = left;
             tree->child3 = right;
+            // Find descendants of new nodes
+            findDescendants(tree->child2);
+            findDescendants(tree->child3);
+            findDescendants(tree);
             break;
         case 3:
             /* Child being pushed up being the third child implies the node is
@@ -164,6 +151,7 @@ struct tree *splitAndInsert(struct tree *tree, struct tree *child, int value) {
 
     /* Clean up replaced child node. */
     free(child);
+    findDescendants(tree); // find descendants of the root
     return insertTreeRecursive(tree, value);
 }
 
@@ -201,10 +189,13 @@ struct tree *insertTree(struct tree *tree, int value) {
             /* Clean up old node */
             free(tree);
             tree = root;
+            // Find descendants of the new nodes
+            findDescendants(tree->child0);
+            findDescendants(tree->child1);
         }
         tree = insertTreeRecursive(tree, value);
     }
-    traverseTree(tree);
+    findDescendants(tree); // find descendants of the root
     return tree;
 }
 
@@ -237,6 +228,7 @@ struct tree *insertTreeRecursive(struct tree *tree, int value) {
             tree->child3 = insertTreeRecursive(tree->child3, value);
         }
     }
+    findDescendants(tree); // find descendants of the root
     return tree;
 }
 
@@ -262,18 +254,26 @@ void printTree(struct tree *tree, int level) {
     printTree(tree->child3, level + 1);
 }
 
+
+/* find medain by using the number of descendants of each node:
+* totalVal: total number of values (remaining) in the tree
+* targetVal: target index
+* level: current level of the tree
+*/
 void findMedian(struct tree *tree, int totalVal, int targetVal, int level) {
-    int temp = 0;
+    int temp = 0; // used to store the total number of values of each child
     if (tree->child0 != NULL) {
         temp = tree->child0->numDescendants + tree->child0->numVals;
+        // Medain in the first child
         if (totalVal - temp < targetVal) {
             return findMedian(tree->child0, totalVal, targetVal, level + 1);
         }
     }
     if (totalVal - temp == targetVal){
-        printf("%d %d", tree->value1, level);
+        printf("%d %d\n", tree->value1, level);
         return;
     }
+    // update totalVal be the number of remaining number of values
     totalVal = totalVal - temp - 1;
     temp = 0;
 
@@ -284,7 +284,7 @@ void findMedian(struct tree *tree, int totalVal, int targetVal, int level) {
         }
     }
     if (totalVal - temp == targetVal){
-        printf("%d %d", tree->value2, level);
+        printf("%d %d\n", tree->value2, level);
         return;
     }
     totalVal = totalVal - temp - 1;
@@ -297,12 +297,13 @@ void findMedian(struct tree *tree, int totalVal, int targetVal, int level) {
         }
     }
     else if (totalVal - temp == targetVal){
-        printf("%d %d", tree->value3, level);
+        printf("%d %d\n", tree->value3, level);
         return;
     }
     totalVal = totalVal - temp - 1;
     temp = 0;
 
+    // The median must be in the last child
     return findMedian(tree->child3, totalVal, targetVal, level + 1);
 }
 

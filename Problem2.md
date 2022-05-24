@@ -1,10 +1,11 @@
-Part A
+# Part A
 
 ```pseudocode
-A <-- Array
+A <-- Array // An array that has enough space to contain all elements in  the tree
 count <-- 0
-function inorder_traversal(tree):
+
 // Traverse the tree in order and put values in an array
+function inorder_traversal(tree):
 	if (tree != NULL):
 		if (tree->val1 != NULL):
             inorder_traversal(tree->child0)
@@ -23,10 +24,10 @@ function inorder_traversal(tree):
             count <-- count + 1
 
 function find_median(A[0...n]):
-	return A[(n-1)/2]
+	return A[(n + 1) /2]
 ```
 
-Part B
+# Part B
 
 ```pseudocode
 function count_descendants(node):
@@ -36,17 +37,18 @@ function count_descendants(node):
 	return num_descendant
 ```
 
-Part C
+# Part C
 
 ```pseudocode
-// Get total count of value in the tree
-total_val_count <-- tree->num_descendants + tree->num_vals
-target_count <-- (total_val_count + 1) / 2
-temp = 0
+total_val_count <-- tree->num_descendants + tree->num_vals // number of values in the tree
+target_count <-- (total_val_count + 1) / 2 // index of the median
+temp = 0 // used to store number of values of each child
 
+// check through each child and value in each level
+// to find where the median index is located
 function find_median_efficient(tree):
 	if (tree->child0 != NULL):
-		temp = tree->child0->num_descendants + tree->child0->num_vals // Number of values in the first node
+		temp = tree->child0->num_descendants + tree->child0->num_vals
 	if (total_val_count - temp < target_count):
 		return find_median_efficient(tree->child0)
 	else if (total_val_count - temp == target_count):
@@ -77,11 +79,15 @@ function find_median_efficient(tree):
 	
 ```
 
-Part D
+# Part D
 
-Since `num_descendants` and `num_vals` are included in the tree structure, it will only take $O(1)$ time to get them. 
+Since `num_descendants` and `num_vals` are computed before running the find medain algorithm and included in the tree structure, it will only take $O(1)$ time to get them. 
 
-In the best case, in which the median is the first value of the root, it will only take constant time to get the result.
+In the best case, in which the median is the first value of the root, it will only take $O(1)$ time to get the result.
 
-In the worst case, the median is in the leaf node of the tree, which will take $\theta(h)$ time to travel to the leaf node of the tree, where $h$ represents the height of the tree. 
+Since there are at most 4 children of each node, it will take $O(1)$ time to travel through them
+
+In the worst case, the median is in the leaf node of the longest branch of the tree, and that branch is located in the right most child. Since travelling through children in a level will only take $O(1)$ time, the algorithm will take $\theta(h)$ time to travel to the bottom of the tree, where $h$ represents the height of the tree.
+
+In terms of space complexity, neglecting the memory usage for recursion, the algorithm will take $O(1)$ space since it doesn’t require any external storage besides several variables that store temporary data. 
 
