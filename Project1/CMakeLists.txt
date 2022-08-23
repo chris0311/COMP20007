@@ -1,20 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
-project(ASS2 C)
+project(ASS1 C)
 
-set(CMAKE_C_STANDARD 11)
+set(CMAKE_C_STANDARD 99)
 
-include_directories(include)
-
-add_executable(ASS2
-        include/crypto.h
-        include/iohelpers.h
-        include/permutation.h
-        include/sponge.h
-        src/crypto.c
-        src/decr.c
-        src/encr.c
-        src/hash.c
-        src/iohelpers.c
-        src/mac.c
-        src/permutation.c
-        src/sponge.c)
+add_executable(ASS1 main.c)

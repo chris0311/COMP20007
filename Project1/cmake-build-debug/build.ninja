@@ -11,7 +11,7 @@
 # =============================================================================
 
 # =============================================================================
-# Project: ASS2
+# Project: ASS1
 # Configurations: Debug
 # =============================================================================
 
@@ -39,124 +39,60 @@ include CMakeFiles/rules.ninja
 #############################################
 # Logical path to working directory; prefix for absolute paths.
 
-cmake_ninja_workdir = C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS2/cmake-build-debug/
+cmake_ninja_workdir = C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS1/cmake-build-debug/
+# =============================================================================
+# Object build statements for EXECUTABLE target ASS1
+
+
+#############################################
+# Order-only phony target for ASS1
+
+build cmake_object_order_depends_target_ASS1: phony || CMakeFiles/ASS1.dir
+
+build CMakeFiles/ASS1.dir/main.c.obj: C_COMPILER__ASS1_Debug C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS1/main.c || cmake_object_order_depends_target_ASS1
+  DEP_FILE = CMakeFiles\ASS1.dir\main.c.obj.d
+  FLAGS = -g -std=gnu99
+  OBJECT_DIR = CMakeFiles\ASS1.dir
+  OBJECT_FILE_DIR = CMakeFiles\ASS1.dir
+  TARGET_COMPILE_PDB = CMakeFiles\ASS1.dir\
+  TARGET_PDB = ASS1.pdb
+
+
+# =============================================================================
+# Link build statements for EXECUTABLE target ASS1
+
+
+#############################################
+# Link the executable ASS1.exe
+
+build ASS1.exe: C_EXECUTABLE_LINKER__ASS1_Debug CMakeFiles/ASS1.dir/main.c.obj
+  FLAGS = -g
+  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
+  OBJECT_DIR = CMakeFiles\ASS1.dir
+  POST_BUILD = cd .
+  PRE_LINK = cd .
+  TARGET_COMPILE_PDB = CMakeFiles\ASS1.dir\
+  TARGET_FILE = ASS1.exe
+  TARGET_IMPLIB = libASS1.dll.a
+  TARGET_PDB = ASS1.pdb
+
 
 #############################################
 # Utility command for edit_cache
 
 build CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D "C:\Users\ASUS\OneDrive - The University of Melbourne\COMP20007\ASS2\cmake-build-debug" && "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
+  COMMAND = cmd.exe /C "cd /D "C:\Users\ASUS\OneDrive - The University of Melbourne\COMP20007\ASS1\cmake-build-debug" && "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" -E echo "No interactive CMake dialog available.""
   DESC = No interactive CMake dialog available...
   restat = 1
 
 build edit_cache: phony CMakeFiles/edit_cache.util
-
-# =============================================================================
-# Object build statements for EXECUTABLE target ASS2
-
-
-#############################################
-# Order-only phony target for ASS2
-
-build cmake_object_order_depends_target_ASS2: phony || CMakeFiles/ASS2.dir
-
-build CMakeFiles/ASS2.dir/src/crypto.c.obj: C_COMPILER__ASS2_Debug C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS2/src/crypto.c || cmake_object_order_depends_target_ASS2
-  DEP_FILE = CMakeFiles\ASS2.dir\src\crypto.c.obj.d
-  FLAGS = -g -std=gnu11
-  INCLUDES = -I"C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS2/include"
-  OBJECT_DIR = CMakeFiles\ASS2.dir
-  OBJECT_FILE_DIR = CMakeFiles\ASS2.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\ASS2.dir\
-  TARGET_PDB = ASS2.pdb
-
-build CMakeFiles/ASS2.dir/src/decr.c.obj: C_COMPILER__ASS2_Debug C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS2/src/decr.c || cmake_object_order_depends_target_ASS2
-  DEP_FILE = CMakeFiles\ASS2.dir\src\decr.c.obj.d
-  FLAGS = -g -std=gnu11
-  INCLUDES = -I"C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS2/include"
-  OBJECT_DIR = CMakeFiles\ASS2.dir
-  OBJECT_FILE_DIR = CMakeFiles\ASS2.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\ASS2.dir\
-  TARGET_PDB = ASS2.pdb
-
-build CMakeFiles/ASS2.dir/src/encr.c.obj: C_COMPILER__ASS2_Debug C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS2/src/encr.c || cmake_object_order_depends_target_ASS2
-  DEP_FILE = CMakeFiles\ASS2.dir\src\encr.c.obj.d
-  FLAGS = -g -std=gnu11
-  INCLUDES = -I"C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS2/include"
-  OBJECT_DIR = CMakeFiles\ASS2.dir
-  OBJECT_FILE_DIR = CMakeFiles\ASS2.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\ASS2.dir\
-  TARGET_PDB = ASS2.pdb
-
-build CMakeFiles/ASS2.dir/src/hash.c.obj: C_COMPILER__ASS2_Debug C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS2/src/hash.c || cmake_object_order_depends_target_ASS2
-  DEP_FILE = CMakeFiles\ASS2.dir\src\hash.c.obj.d
-  FLAGS = -g -std=gnu11
-  INCLUDES = -I"C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS2/include"
-  OBJECT_DIR = CMakeFiles\ASS2.dir
-  OBJECT_FILE_DIR = CMakeFiles\ASS2.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\ASS2.dir\
-  TARGET_PDB = ASS2.pdb
-
-build CMakeFiles/ASS2.dir/src/iohelpers.c.obj: C_COMPILER__ASS2_Debug C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS2/src/iohelpers.c || cmake_object_order_depends_target_ASS2
-  DEP_FILE = CMakeFiles\ASS2.dir\src\iohelpers.c.obj.d
-  FLAGS = -g -std=gnu11
-  INCLUDES = -I"C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS2/include"
-  OBJECT_DIR = CMakeFiles\ASS2.dir
-  OBJECT_FILE_DIR = CMakeFiles\ASS2.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\ASS2.dir\
-  TARGET_PDB = ASS2.pdb
-
-build CMakeFiles/ASS2.dir/src/mac.c.obj: C_COMPILER__ASS2_Debug C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS2/src/mac.c || cmake_object_order_depends_target_ASS2
-  DEP_FILE = CMakeFiles\ASS2.dir\src\mac.c.obj.d
-  FLAGS = -g -std=gnu11
-  INCLUDES = -I"C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS2/include"
-  OBJECT_DIR = CMakeFiles\ASS2.dir
-  OBJECT_FILE_DIR = CMakeFiles\ASS2.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\ASS2.dir\
-  TARGET_PDB = ASS2.pdb
-
-build CMakeFiles/ASS2.dir/src/permutation.c.obj: C_COMPILER__ASS2_Debug C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS2/src/permutation.c || cmake_object_order_depends_target_ASS2
-  DEP_FILE = CMakeFiles\ASS2.dir\src\permutation.c.obj.d
-  FLAGS = -g -std=gnu11
-  INCLUDES = -I"C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS2/include"
-  OBJECT_DIR = CMakeFiles\ASS2.dir
-  OBJECT_FILE_DIR = CMakeFiles\ASS2.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\ASS2.dir\
-  TARGET_PDB = ASS2.pdb
-
-build CMakeFiles/ASS2.dir/src/sponge.c.obj: C_COMPILER__ASS2_Debug C$:/Users/ASUS/OneDrive$ -$ The$ University$ of$ Melbourne/COMP20007/ASS2/src/sponge.c || cmake_object_order_depends_target_ASS2
-  DEP_FILE = CMakeFiles\ASS2.dir\src\sponge.c.obj.d
-  FLAGS = -g -std=gnu11
-  INCLUDES = -I"C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS2/include"
-  OBJECT_DIR = CMakeFiles\ASS2.dir
-  OBJECT_FILE_DIR = CMakeFiles\ASS2.dir\src
-  TARGET_COMPILE_PDB = CMakeFiles\ASS2.dir\
-  TARGET_PDB = ASS2.pdb
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target ASS2
-
-
-#############################################
-# Link the executable ASS2.exe
-
-build ASS2.exe: C_EXECUTABLE_LINKER__ASS2_Debug CMakeFiles/ASS2.dir/src/crypto.c.obj CMakeFiles/ASS2.dir/src/decr.c.obj CMakeFiles/ASS2.dir/src/encr.c.obj CMakeFiles/ASS2.dir/src/hash.c.obj CMakeFiles/ASS2.dir/src/iohelpers.c.obj CMakeFiles/ASS2.dir/src/mac.c.obj CMakeFiles/ASS2.dir/src/permutation.c.obj CMakeFiles/ASS2.dir/src/sponge.c.obj
-  FLAGS = -g
-  LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
-  OBJECT_DIR = CMakeFiles\ASS2.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\ASS2.dir\
-  TARGET_FILE = ASS2.exe
-  TARGET_IMPLIB = libASS2.dll.a
-  TARGET_PDB = ASS2.pdb
 
 
 #############################################
 # Utility command for rebuild_cache
 
 build CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cmd.exe /C "cd /D "C:\Users\ASUS\OneDrive - The University of Melbourne\COMP20007\ASS2\cmake-build-debug" && "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S"C:\Users\ASUS\OneDrive - The University of Melbourne\COMP20007\ASS2" -B"C:\Users\ASUS\OneDrive - The University of Melbourne\COMP20007\ASS2\cmake-build-debug""
+  COMMAND = cmd.exe /C "cd /D "C:\Users\ASUS\OneDrive - The University of Melbourne\COMP20007\ASS1\cmake-build-debug" && "C:\Program Files\JetBrains\CLion 2021.1.2\bin\cmake\win\bin\cmake.exe" --regenerate-during-build -S"C:\Users\ASUS\OneDrive - The University of Melbourne\COMP20007\ASS1" -B"C:\Users\ASUS\OneDrive - The University of Melbourne\COMP20007\ASS1\cmake-build-debug""
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
@@ -166,7 +102,7 @@ build rebuild_cache: phony CMakeFiles/rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build ASS2: phony ASS2.exe
+build ASS1: phony ASS1.exe
 
 # =============================================================================
 # Folder targets.
@@ -174,9 +110,9 @@ build ASS2: phony ASS2.exe
 # =============================================================================
 
 #############################################
-# Folder: C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS2/cmake-build-debug
+# Folder: C:/Users/ASUS/OneDrive - The University of Melbourne/COMP20007/ASS1/cmake-build-debug
 
-build all: phony ASS2.exe
+build all: phony ASS1.exe
 
 # =============================================================================
 # Built-in targets

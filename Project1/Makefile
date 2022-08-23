@@ -1,40 +1,33 @@
-all: hash mac encr decr
+# Build targets
+# lm - link math library library. required if you use math.h functions (commonly
+# linked by default on mac).
+problem2a: problem2a.o utils.o graph.o pq.o list.o
+	gcc -Wall -o problem2a -g -lm problem2a.o utils.o graph.o pq.o list.o
 
-hash: build/hash.o build/permutation.o build/sponge.o build/crypto.o build/iohelpers.o
-	gcc build/hash.o build/permutation.o build/sponge.o build/crypto.o build/iohelpers.o -o hash -g
+problem2b: problem2b.o utils.o graph.o pq.o list.o
+	gcc -Wall -o problem2b -g -lm problem2b.o utils.o graph.o pq.o list.o
 
-mac: build/mac.o build/permutation.o build/sponge.o build/crypto.o build/iohelpers.o
-	gcc build/mac.o build/permutation.o build/sponge.o build/crypto.o build/iohelpers.o -o mac -g
+problem2c: problem2c.o utils.o graph.o pq.o list.o
+	gcc -Wall -o problem2c -g -lm problem2c.o utils.o graph.o pq.o list.o
 
-encr: build/encr.o build/permutation.o build/sponge.o build/crypto.o build/iohelpers.o
-	gcc build/encr.o build/permutation.o build/sponge.o build/crypto.o build/iohelpers.o -o encr -g
 
-decr: build/decr.o build/permutation.o build/sponge.o build/crypto.o build/iohelpers.o
-	gcc build/decr.o build/permutation.o build/sponge.o build/crypto.o build/iohelpers.o -o decr -g
+problem2a.o: problem2a.c graph.h utils.h
+	gcc -c problem2a.c -Wall -g
 
-build/hash.o: src/hash.c include/crypto.h include/iohelpers.h
-	gcc -Iinclude -Wall -g -c src/hash.c -o build/hash.o
+problem2b.o: problem2b.c graph.h utils.h
+	gcc -c problem2b.c -Wall -g
 
-build/mac.o: src/mac.c include/crypto.h include/iohelpers.h
-	gcc -Iinclude -Wall -g -c src/mac.c -o build/mac.o
+problem2c.o: problem2c.c graph.h utils.h
+	gcc -c problem2c.c -Wall -g
 
-build/encr.o: src/encr.c include/crypto.h include/iohelpers.h
-	gcc -Iinclude -Wall -g -c src/encr.c -o build/encr.o
+utils.o: utils.c utils.h graph.h
+	gcc -c utils.c -Wall -g
 
-build/decr.o: src/decr.c include/crypto.h include/iohelpers.h
-	gcc -Iinclude -Wall -g -c src/decr.c -o build/decr.o
+graph.o: graph.c graph.h pq.h utils.h
+	gcc -c graph.c -Wall -g
 
-build/permutation.o: include/permutation.h src/permutation.c
-	gcc -Iinclude -Wall -g -c src/permutation.c -o build/permutation.o
+pq.o: pq.c pq.h
+	gcc -c pq.c -Wall -g
 
-build/sponge.o: include/sponge.h src/sponge.c include/permutation.h
-	gcc -Iinclude -Wall -g -c src/sponge.c -o build/sponge.o
-
-build/crypto.o: include/crypto.h src/crypto.c include/sponge.h
-	gcc -Iinclude -Wall -g -c src/crypto.c -o build/crypto.o
-
-build/iohelpers.o: include/iohelpers.h src/iohelpers.c
-	gcc -Iinclude -Wall -g -c src/iohelpers.c -o build/iohelpers.o
-
-clean:
-	rm -rf build/* hash mac encr decr
+list.o: list.c list.h
+	gcc -c list.c -Wall -g

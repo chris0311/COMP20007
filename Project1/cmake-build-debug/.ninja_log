@@ -1,11 +1,3 @@
 # ninja log v5
-0	163	6741319170715728	CMakeFiles/ASS2.dir/src/crypto.c.obj	235d2de48399dd55
-11	173	6741319170915787	CMakeFiles/ASS2.dir/src/decr.c.obj	f1b0a47dbe4b8f80
-22	181	6741319170965786	CMakeFiles/ASS2.dir/src/hash.c.obj	93b18e336fcb990e
-33	184	6741319171045800	CMakeFiles/ASS2.dir/src/encr.c.obj	9706e1108d802653
-42	190	6741319171085810	CMakeFiles/ASS2.dir/src/permutation.c.obj	abd8a47cb0f3cd79
-76	212	6741319171335888	CMakeFiles/ASS2.dir/src/sponge.c.obj	7b6057559e8ddee
-53	217	6741319171395879	CMakeFiles/ASS2.dir/src/iohelpers.c.obj	6a070eead75b2d08
-65	220	6741319171425900	CMakeFiles/ASS2.dir/src/mac.c.obj	50937d5c3250a997
-23	148	6747771899150536	CMakeFiles/ASS2.dir/src/sponge.c.obj	7b6057559e8ddee
-12	165	6747771899330587	CMakeFiles/ASS2.dir/src/crypto.c.obj	235d2de48399dd55
+0	89	6697351175518240	CMakeFiles/ASS1.dir/main.c.obj	ed149418216619c1
+90	198	6697351176558551	ASS1.exe	6026dfb1a911098c
